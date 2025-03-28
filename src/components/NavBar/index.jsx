@@ -2,34 +2,40 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./navbar.css";
 import Avatar from "./assets/avatar.svg";
-//oii
-const NavBar = () => {
-  const [menuVisible, setMenuVisible] = useState(false); // Controle do menu
-  const menuRef = useRef(null); // Referência para o menu de perfil
 
-  const navigate = useNavigate(); // Usar para redirecionamento
+const NavBar = () => {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const profileContainerRef = useRef(null);
+  const profileIconRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("auth"); // Remover a autenticação do localStorage
-    navigate("/login"); // Redirecionar para a página de login
+    localStorage.removeItem("auth");
+    navigate("/login");
   };
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible); // Alternar a visibilidade do menu
+    setMenuVisible(prev => !prev);
   };
+  
 
-  // Fechar o menu se o clique for fora do menu ou da foto de perfil
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      // Não fecha se clicar no ícone ou no menu
+      if (
+        !profileContainerRef.current?.contains(event.target) &&
+        !menuRef.current?.contains(event.target)
+      ) {
         setMenuVisible(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -53,27 +59,38 @@ const NavBar = () => {
           className="navbar-input"
           placeholder="Pesquisar..."
         />
-        <i className="fa fa-search"></i> {/* Ícone de pesquisa */}
+        <i className="fa fa-search"></i>
       </div>
-      <div className="profile-container">
+      <div className="profile-container" ref={profileContainerRef}>
         <div
           className="profile-icon"
-          onClick={toggleMenu} // Toggle menu ao clicar na foto de perfil
+          onClick={toggleMenu}
+          ref={profileIconRef}
         >
           <img src={Avatar} alt="Perfil" className="profile-photo" />
         </div>
         {menuVisible && (
-          <ul className="profile-details" ref={menuRef}>
-            <li className="profile-item">
-              <span>Nome da Pessoa</span>
-            </li>
-            <li className="profile-item">
-              <button className="profile-sair" onClick={handleLogout}>
-                Sair
-              </button>
-            </li>
-          </ul>
-        )}
+  <ul className="profile-details" ref={menuRef}>
+    <li className="profile-item">
+      <span>Nome da Pessoa</span>
+    </li>
+    <li className="profile-item profile-item-email">
+      <span>email@example.com</span> {/* Substitua pelo email dinâmico */}
+    </li>
+    {/* <li className="profile-item profile-item-settings">
+      <span>Configurações</span>
+    </li>
+    <li className="profile-item profile-item-help">
+      <span>Ajuda</span>
+    </li> */}
+    <li className="profile-item">
+      <button className="profile-sair" onClick={handleLogout}>
+        Sair
+      </button>
+    </li>
+  </ul>
+)}
+
       </div>
     </nav>
   );
