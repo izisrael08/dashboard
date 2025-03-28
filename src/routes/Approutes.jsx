@@ -6,7 +6,9 @@ import Login from "../pages/Login";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 const AppRoutes = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("auth") === "true");
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("auth") === "true"
+  );
 
   // Atualiza o estado sempre que o valor do localStorage mudar
   useEffect(() => {
