@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 import Painel from "../pages/Painel";
 import Login from "../pages/Login";
-import { Routes, Route, Navigate } from "react-router-dom";
 
 const AppRoutes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("auth") === "true"
   );
 
-  // Atualiza o estado sempre que o valor do localStorage mudar
   useEffect(() => {
-    setIsAuthenticated(localStorage.getItem("auth") === "true");
-  }, [localStorage.getItem("auth")]); // Atualiza quando o auth mudar no localStorage
+    const handleStorageChange = () => {
+      setIsAuthenticated(localStorage.getItem("auth") === "true");
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <Routes>
-      {/* Página de Login (página inicial) */}
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
-
-      {/* Painel protegido por autenticação */}
       <Route
         path="/painel"
         element={
@@ -34,7 +37,7 @@ const AppRoutes = () => {
               </div>
             </div>
           ) : (
-            <Navigate to="/login" />
+            <Navigate to="/login" replace />
           )
         }
       />
