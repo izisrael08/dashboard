@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./navbar.css";
 import Avatar from "./assets/avatar.svg";
-
+//oii
 const NavBar = () => {
   const [menuVisible, setMenuVisible] = useState(false); // Controle do menu
   const menuRef = useRef(null); // Referência para o menu de perfil
