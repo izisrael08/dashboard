@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Home,
   BarChart2,
@@ -40,6 +41,9 @@ const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
     localStorage.setItem("sidebarState", JSON.stringify(newState));
   };
 
+     // Usando useNavigate para navegação
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === "sidebarState") {
@@ -66,7 +70,12 @@ const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
         <ul className="sidebar-nav">
           <NavItem icon={<Home size={20} />} text="Dashboard" />
           <NavItem icon={<BarChart2 size={20} />} text="Statistics" />
-          <NavItem icon={<Users size={20} />} text="Users" />
+          <NavItem 
+            icon={<Users size={20} />} 
+            text="Usuarios" 
+            onClick={() => navigate("/users")} 
+          />
+
           <NavItem icon={<Box size={20} />} text="Inventory" />
           <NavItem icon={<ShoppingCart size={20} />} text="Orders" />
           <NavItem icon={<CreditCard size={20} />} text="Billings" />
