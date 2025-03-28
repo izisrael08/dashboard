@@ -1,0 +1,171 @@
+/* Estilos para a Navbar */
+.navbar {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-bottom: 2px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: flex-end; /* Alinhando todos os itens à esquerda */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Ajuste para alinhar os itens à esquerda */
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end; /* Alinhando os itens de navegação à esquerda */
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.navbar-item {
+  margin: 0 15px;
+}
+
+.navbar-link {
+  color: rgb(105, 102, 102);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: #2655ec;
+}
+
+/* Ajuste para a caixa de pesquisa */
+.navbar-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 30px;
+}
+
+.navbar-input {
+  padding: 8px 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  flex-basis: 250px;
+  margin-right: 15px;
+  width: 200px;
+  margin-top: 10px;
+}
+
+.navbar-input-container i {
+  position: absolute;
+  right: 10px;
+  color: gray;
+  pointer-events: none;
+}
+
+/* Ajuste para a foto de perfil e menu suspenso */
+.profile-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.profile-details {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  top: 50px;
+  right: 0; /* Mantém alinhado ao lado da foto de perfil */
+  padding: 10px;
+  border-radius: 4px;
+  width: 200px;
+  text-align: center;
+  z-index: 10;
+}
+
+.profile-container:hover .profile-details {
+  display: block;
+}
+
+.profile-item {
+  list-style: none;
+  padding: 8px;
+}
+
+/* Estilos para o botão "Sair" */
+.profile-sair {
+  cursor: pointer;
+  color: #5f6368; /* Cor de texto padrão, similar ao padrão do Google */
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid #ddd; /* Borda sutil, parecida com a do Google */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Efeito de hover */
+.profile-sair:hover {
+  background-color: #f1f3f4; /* Cor de fundo suave, similar ao Google */
+  color: #1a73e8; /* Cor de texto ao passar o mouse */
+  border-color: #1a73e8; /* Borda muda para o mesmo tom do texto */
+  text-decoration: none; /* Remover sublinhado */
+}
+
+/* Efeito de focus */
+.profile-sair:focus {
+  outline: none; /* Remover borda de foco */
+  box-shadow: 0 0 2px 2px rgba(26, 115, 232, 0.3); /* Efeito de foco azul */
+}
+
+
+.profile-icon {
+  margin-left: 10px;
+}
+
+.profile-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover; /* Garantir que a imagem se ajuste ao formato circular */
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  /* Alinhamento dos itens de navegação em uma coluna em telas menores */
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start; /* Alinhando os itens de navegação à esquerda em dispositivos móveis */
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Ajuste no campo de pesquisa para ocupar toda a largura disponível */
+  .navbar-input-container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .navbar-input {
+    width: 100%;
+  }
+
+  /* Ajuste no menu de perfil para posicionamento adequado */
+  .profile-details {
+    top: 40px;
+  }
+
+  /* Ajuste de padding para a navbar */
+  .navbar {
+    padding: 10px;
+  }
+
+  /* Foto de perfil um pouco menor em telas menores */
+  .profile-photo {
+    width: 35px;
+    height: 35px;
+  }
+}

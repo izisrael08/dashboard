@@ -1,0 +1,135 @@
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição mais suave */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sidebar.closed {
+  width: 60px;
+  padding-top: auto;
+}
+
+/* Animação para os itens da sidebar */
+.sidebar-nav {
+  list-style: none;
+  margin: 40px 0px 0px 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-item {
+  margin: 8px 0;
+  transition: all 0.2s ease-in-out;
+  transform-origin: left center;
+}
+
+.sidebar.closed .sidebar-item {
+  transform: scale(0.9);
+}
+
+.sidebar-button-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.sidebar-button-item svg {
+  margin-right: 15px;
+  width: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar.closed .sidebar-button-item svg {
+  margin-right: 5px;
+  transform: scale(1.1);
+}
+
+/* Animação para o texto */
+.sidebar-text {
+  transition: all 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.sidebar.closed .sidebar-text {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* Animação para o logo */
+.sidebar-logo {
+  width: 134px;
+  margin: 10px 0 10px 15px;
+  padding-top: 18px;
+  /* transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+.sidebar.closed .sidebar-logo {
+  width: 30px;
+  margin: 10px 0 10px 15px;
+  transform: scale(0.9);
+  /* padding-top: 10px; */
+}
+
+/* Efeito de hover mais suave */
+.sidebar-button-item:hover {
+  background-color: #b6cbf7;
+  transform: translateX(5px);
+}
+
+.sidebar.closed .sidebar-button-item:hover {
+  transform: translateX(2px) scale(0.95);
+}
+
+/* Tooltip animado */
+.sidebar-item button::after {
+  content: attr(title);
+  position: absolute;
+  left: 60px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 12px;
+  transform: translateX(-10px);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.sidebar.closed .sidebar-item button:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Footer animation */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px;
+  padding-bottom: 32px;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ebecec;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar.closed .sidebar-footer {
+  padding: 10px;
+}
