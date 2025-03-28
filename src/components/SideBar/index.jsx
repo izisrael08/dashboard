@@ -12,12 +12,12 @@ import {
 } from "react-feather";
 import LogoFull from "./assets/logoipsum-360.svg";
 import LogoMinimized from "./assets/logoMinimizado.svg";
-import "./sidebar.css";
+import "./styles/sidebar.css";
 
-const NavItem = ({ icon, text }) => {
+const NavItem = ({ icon, text, onClick }) => {
   return (
     <li className="sidebar-item" title={text}>
-      <button className="sidebar-button-item">
+      <button className="sidebar-button-item" onClick={onClick}>
         {icon}
         <span className="sidebar-text">{text}</span>
       </button>
@@ -25,7 +25,7 @@ const NavItem = ({ icon, text }) => {
   );
 };
 
-const SideBar = ({ email = "israelguedes008@gmail.com" }) => {
+const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== "undefined") {
       const savedState = localStorage.getItem("sidebarState");
@@ -59,7 +59,7 @@ const SideBar = ({ email = "israelguedes008@gmail.com" }) => {
             src={isOpen ? LogoFull : LogoMinimized}
             className="sidebar-logo"
             alt="Logo"
-            onClick={toggleSidebar} // Logo agora serve como botão de alternância
+            onClick={toggleSidebar}
           />
         </div>
 
@@ -75,17 +75,17 @@ const SideBar = ({ email = "israelguedes008@gmail.com" }) => {
         <hr className="sidebar-divider" />
 
         <ul className="sidebar-nav">
-          <NavItem icon={<Settings size={20} />} text="Settings" />
+          <NavItem
+            icon={<Settings size={20} />}
+            text="Settings"
+            onClick={() => setIsModalOpen(true)}
+          />
           <NavItem icon={<HelpCircle size={20} />} text="Help" />
         </ul>
 
         <div className="sidebar-footer">
           <div className="sidebar-email-container">
-            {isOpen ? (
-              <p className="sidebar-email">{email}</p>
-            ) : (
-              <Mail size={20} />
-            )}
+            {isOpen ? <p className="sidebar-email">{email}</p> : <Mail size={20} />}
           </div>
         </div>
       </nav>
