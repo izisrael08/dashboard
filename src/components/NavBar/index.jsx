@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./NavBar.css";
+import "./navbar.css";
 import Avatar from "./assets/avatar.svg";
 
 const NavBar = () => {
