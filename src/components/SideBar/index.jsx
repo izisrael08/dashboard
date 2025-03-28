@@ -10,6 +10,8 @@ import {
   Settings,
   HelpCircle,
   Mail,
+  ChevronLeft,
+  ChevronRight
 } from "react-feather";
 import LogoFull from "./assets/logoipsum-360.svg";
 import LogoMinimized from "./assets/logoMinimizado.svg";
@@ -41,7 +43,6 @@ const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
     localStorage.setItem("sidebarState", JSON.stringify(newState));
   };
 
-     // Usando useNavigate para navegação
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,19 +64,25 @@ const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
             src={isOpen ? LogoFull : LogoMinimized}
             className="sidebar-logo"
             alt="Logo"
-            onClick={toggleSidebar}
           />
+          {/* Botão para recolher/expandir */}
+          <button 
+            className="sidebar-toggle-button"
+            onClick={toggleSidebar}
+            aria-label={isOpen ? "Recolher sidebar" : "Expandir sidebar"}
+          >
+            {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+          </button>
         </div>
 
         <ul className="sidebar-nav">
-          <NavItem icon={<Home size={20} />} text="Dashboard" />
+          <NavItem icon={<Home size={20} />} href="/" text="Dashboard" />
           <NavItem icon={<BarChart2 size={20} />} text="Statistics" />
           <NavItem 
             icon={<Users size={20} />} 
             text="Usuarios" 
             onClick={() => navigate("/users")} 
           />
-
           <NavItem icon={<Box size={20} />} text="Inventory" />
           <NavItem icon={<ShoppingCart size={20} />} text="Orders" />
           <NavItem icon={<CreditCard size={20} />} text="Billings" />
