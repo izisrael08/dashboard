@@ -1,0 +1,90 @@
+Tema escuro geral da pagina painel
+body{
+    background-color: #121212;
+}
+/* Tema escuro refinado */
+.app-container, .sidebar, .navbar {
+    background-color: #121212; /* Preto suave */
+    color: #E0E0E0; /* Cinza claro para melhor leitura */
+}
+
+/* Links da navbar */
+.navbar-link {
+    color: #E0E0E0;
+}
+
+.navbar-link:hover {
+    color: #BB86FC; /* Roxo suave para destaque */
+}
+
+/* Botões da sidebar */
+.sidebar-button-item {
+    color: #E0E0E0;
+}
+
+.sidebar-button-item:hover {
+    background-color: #333; /* Cinza escuro para realce */
+}
+
+/* Detalhes do perfil */
+.profile-details, .profile-item, .profile-sair, .sidebar-footer {
+    background-color: #1E1E1E; /* Tom intermediário para contraste */
+    color: #E0E0E0;
+}
+
+/* Botão de sair */
+.profile-sair:hover {
+    background-color: #BB86FC;
+    color: #121212;
+}
+
+/* quero para tela de login tambem  */
+/* Tema escuro refinado para a tela de login */
+.google-auth-container {
+    background-color: #121212; /* Preto suave */
+    color: #E0E0E0; /* Texto cinza claro */
+}
+
+/* Cartão de login */
+.google-auth-card {
+    background-color: #1E1E1E; /* Tom intermediário para contraste */
+    color: #E0E0E0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Entrada de texto */
+.google-input-container input {
+    background-color: #2C2C2C; /* Cinza escuro */
+    color: #E0E0E0; /* Texto claro */
+    border: 1px solid #333; /* Borda sutil */
+}
+
+.google-input-container input:focus {
+    border-color: #BB86FC; /* Roxo suave */
+}
+
+/* Botão principal */
+.google-auth-button {
+    background-color: #BB86FC; /* Roxo suave */
+    color: #121212;
+    border: none;
+}
+
+.google-auth-button:hover {
+    background-color: #9A6DD7; /* Roxo um pouco mais claro */
+}
+
+/* Links de ajuda */
+.google-auth-link {
+    color: #BB86FC;
+}
+
+.google-auth-link:hover {
+    color: #9A6DD7;
+}
+
+/* Rodapé */
+.google-auth-footer {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+}

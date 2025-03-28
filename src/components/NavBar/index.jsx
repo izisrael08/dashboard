@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./navbar.css";
 import Avatar from "./assets/avatar.svg";
+import { Search } from "react-feather";
 
 const NavBar = () => {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -54,11 +55,15 @@ const NavBar = () => {
         </li>
       </ul>
       <div className="navbar-input-container">
+      <div className="navbar-input-container">
         <input
           type="text"
           className="navbar-input"
           placeholder="Pesquisar..."
         />
+        <Search className="search-icon" />
+      </div>
+
         <i className="fa fa-search"></i>
       </div>
       <div className="profile-container" ref={profileContainerRef}>
