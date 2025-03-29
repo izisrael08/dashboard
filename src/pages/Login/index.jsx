@@ -26,7 +26,7 @@ const Login = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Simulação de autenticação
-      if (email === "admin@example.com" && password === "123456") {
+      if (email === "israelguedes008@gmail.com" && password === "123456") {
         localStorage.setItem("auth", "true");
         window.dispatchEvent(new Event("storage"));
         navigate("/painel");
