@@ -85,7 +85,11 @@ const SideBar = ({ email = "israelguedes008@gmail.com", setIsModalOpen }) => {
           />
           <NavItem icon={<Box size={20} />} text="Inventory" />
           <NavItem icon={<ShoppingCart size={20} />} text="Orders" />
-          <NavItem icon={<CreditCard size={20} />} text="Billings" />
+          <NavItem 
+              icon={<CreditCard
+              size={20} />} 
+              text="Billings"
+              onClick={() => navigate("/faturas")} />
         </ul>
 
         <hr className="sidebar-divider" />

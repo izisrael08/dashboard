@@ -1,0 +1,113 @@
+/* modal-configuracao.css */
+
+/* Overlay - fundo escuro semi-transparente */
+.modal-config-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Conteúdo principal do modal */
+.modal-config-content {
+    background-color: white;
+    border-radius: 0.3rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    outline: 0;
+}
+
+/* Cabeçalho do modal */
+.modal-config-header {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Título do modal */
+.modal-config-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #212529;
+}
+
+/* Botão de fechar */
+.modal-config-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    opacity: 0.5;
+    cursor: pointer;
+    padding: 0;
+}
+
+.modal-config-close:hover {
+    opacity: 0.75;
+}
+
+/* Corpo do modal */
+.modal-config-body {
+    padding: 1rem;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+/* Rodapé do modal */
+.modal-config-footer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* Botões do rodapé */
+.modal-config-btn {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.modal-config-btn-secondary {
+    color: #212529;
+    background-color: #e2e6ea;
+    border: 1px solid #dae0e5;
+}
+
+.modal-config-btn-secondary:hover {
+    background-color: #d5d8dc;
+}
+
+.modal-config-btn-primary {
+    color: white;
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
+
+.modal-config-btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
