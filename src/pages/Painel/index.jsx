@@ -95,6 +95,13 @@ const Painel = () => {
   const [showBlurContainer, setShowBlurContainer] = useState(false);
   const [blurImage, setBlurImage] = useState('');
   const [grupoInfo, setGrupoInfo] = useState({ numero: '', dezenas: '' });
+    // Estado para o container de informações
+    const [blurContainer, setBlurContainer] = useState({
+      show: false,
+      image: '',
+      grupoNumero: '',
+      grupoDezenas: ''
+    });
   
   // Estado para os campos de resultado
   const [resultadoInput, setResultadoInput] = useState({
@@ -149,27 +156,34 @@ const Painel = () => {
     }
   };
 
-  // Atualiza o container de informações para o primeiro prêmio do Rio
-  const updateBlurContainerImage = (estado, rowIndex, value) => {
-    if (estado === 'rio' && rowIndex === 1 && value.length === 4) {
-      const dezenaBicho = value.substring(2);
-      const grupo = getGrupo(dezenaBicho);
+ // Atualiza o container de informações para o primeiro prêmio do Rio
+ const updateBlurContainerImage = (estado, rowIndex, value) => {
+  if (estado === 'rio' && rowIndex === 1 && value.length === 4) {
+    const dezenaBicho = value.substring(2);
+    const grupo = getGrupo(dezenaBicho);
 
-      if (grupo) {
-        const paddedNumber = grupo.padStart(2, '0');
-        setBlurImage(images.blurContainer[paddedNumber]);
-        setGrupoInfo({
-          numero: `Grupo ${grupo}`,
-          dezenas: getDezenas(grupo)
-        });
-        setShowBlurContainer(true);
-        confetti();
-        playAudio(grupo);
-      }
-    } else if (estado === 'rio' && rowIndex === 1) {
-      setShowBlurContainer(false);
+    if (grupo) {
+      const paddedNumber = grupo.padStart(2, '0');
+      
+      setBlurContainer({
+        show: true,
+        image: images.blurContainer[paddedNumber],
+        grupoNumero: `Grupo ${grupo}`,
+        grupoDezenas: getDezenas(grupo)
+      });
+
+      confetti();
+      playAudio(grupo);
     }
-  };
+  } else if (estado === 'rio' && rowIndex === 1) {
+    setBlurContainer({
+      show: false,
+      image: '',
+      grupoNumero: '',
+      grupoDezenas: ''
+    });
+  }
+};
 
   // Retorna as dezenas correspondentes a um grupo
   const getDezenas = (grupo) => {
@@ -450,15 +464,17 @@ const Painel = () => {
 
       {/* Container de informações (mostra grupo e dezenas do 1º prêmio do Rio) */}
       <div className="container-info">
-        {showBlurContainer && (
-          <div id="blur-container" className="blur-container visible">
-            <img id="premio-image" src={blurImage} alt="Imagem do Prêmio" />
-            <div id="grupo-info">
-              <h3 className="Grupo-numero">{grupoInfo.numero}</h3>
-              <p className="title-dezenas">Dezenas</p>
-              <p className="grupo-dezenas">{grupoInfo.dezenas}</p>
+        {blurContainer.show && (
+          <>
+            <div id="blur-container" className="blur-container visible">
+              <img id="premio-image" src={blurContainer.image} alt="Imagem do Prêmio" />
             </div>
-          </div>
+            <div id="grupo-info">
+              <h3 className="Grupo-numero">{blurContainer.grupoNumero}</h3>
+              <p className="title-dezenas">Dezenas</p>
+              <p className="grupo-dezenas">{blurContainer.grupoDezenas}</p>
+            </div>
+          </>
         )}
       </div>
 
