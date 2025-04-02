@@ -55,6 +55,34 @@ import blur23 from './images/_blurContainer/23.png';
 import blur24 from './images/_blurContainer/24.png';
 import blur25 from './images/_blurContainer/25.png';
 
+// Importe todos os áudios (adicione isso junto com as importações de imagens)
+import audio01 from './audios/01.mp3';
+import audio02 from './audios/02.mp3';
+import audio03 from './audios/03.mp3';
+import audio04 from './audios/04.mp3';
+import audio05 from './audios/05.mp3';
+import audio06 from './audios/06.mp3';
+import audio07 from './audios/07.mp3';
+import audio08 from './audios/08.mp3';
+import audio09 from './audios/09.mp3';
+import audio10 from './audios/10.mp3';
+import audio11 from './audios/11.mp3';
+import audio12 from './audios/12.mp3';
+import audio13 from './audios/13.mp3';
+import audio14 from './audios/14.mp3';
+import audio15 from './audios/15.mp3';
+import audio16 from './audios/16.mp3';
+import audio17 from './audios/17.mp3';
+import audio18 from './audios/18.mp3';
+import audio19 from './audios/19.mp3';
+import audio20 from './audios/20.mp3';
+import audio21 from './audios/21.mp3';
+import audio22 from './audios/22.mp3';
+import audio23 from './audios/23.mp3';
+import audio24 from './audios/24.mp3';
+import audio25 from './audios/25.mp3';
+
+
 // Mapeamento de imagens
 const images = {
   rg: {
@@ -71,6 +99,15 @@ const images = {
     '16': blur16, '17': blur17, '18': blur18, '19': blur19, '20': blur20,
     '21': blur21, '22': blur22, '23': blur23, '24': blur24, '25': blur25
   }
+};
+
+// Crie um objeto de mapeamento de áudios (junto com o objeto images)
+const audios = {
+  '01': audio01, '02': audio02, '03': audio03, '04': audio04, '05': audio05,
+  '06': audio06, '07': audio07, '08': audio08, '09': audio09, '10': audio10,
+  '11': audio11, '12': audio12, '13': audio13, '14': audio14, '15': audio15,
+  '16': audio16, '17': audio17, '18': audio18, '19': audio19, '20': audio20,
+  '21': audio21, '22': audio22, '23': audio23, '24': audio24, '25': audio25
 };
 
 // Componente principal
@@ -202,11 +239,20 @@ const Painel = () => {
   };
 
   // Toca o áudio correspondente ao grupo
-  const playAudio = (grupo) => {
-    if (!grupo) return;
-    const audio = new Audio(`/audios/${grupo.padStart(2, '0')}.mp3`);
-    audio.play().catch(error => console.error("Erro ao reproduzir o áudio:", error));
-  };
+// Modifique a função playAudio
+const playAudio = (grupo) => {
+  if (!grupo) return;
+  const paddedNumber = grupo.padStart(2, '0');
+  
+  // Verifica se o áudio existe no objeto
+  if (!audios[paddedNumber]) {
+    console.error(`Áudio para o grupo ${grupo} não encontrado`);
+    return;
+  }
+  
+  const audio = new Audio(audios[paddedNumber]);
+  audio.play().catch(error => console.error("Erro ao reproduzir o áudio:", error));
+};
 
   // Atualização do handleInputChange - VERSÃO CORRIGIDA
   const handleInputChange = (estado, rowIndex, value) => {
