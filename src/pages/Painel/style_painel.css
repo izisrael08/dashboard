@@ -1,0 +1,384 @@
+Body {
+    background: url('../Painel/images/painel_01.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+}
+
+.table-content {
+    width: auto; /* Ajusta a tabela automaticamente ao conteúdo */
+    border-collapse: collapse; /* Remove os espaços entre as células */
+}
+
+.tab-placement {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    overflow: hidden;
+    color: #fff;
+    padding: 10px;
+}
+
+.tab-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+     margin: 2px;
+    border-radius: 50%;
+    background-color: #fff;
+   
+}
+
+.avatar-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Faz com que a imagem preencha o container */
+}
+
+.tab-resultado {
+    display: block;
+    width: 100%; /* Ajusta a largura para preencher o container */
+    height: 40px;
+    max-width: 100px; /* Define a largura máxima */
+    padding: 5px;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px #fff;
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    margin: 5px; /* Remove a margem para ajustar ao tamanho da célula */
+    transition: .3s ease-in-out;
+    outline: none;
+}
+
+.tab-grup {
+    display: block;
+    width: 100%; /* Ajusta a largura para preencher o container */
+    max-width: 75px; /* Define a largura máxima */
+    height: 40px;
+    padding: 5px;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px #fff;
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    margin: 5px; /* Remove a margem para ajustar ao tamanho da célula */
+    transition: .3s ease-in-out;
+    outline: none;
+}
+
+.tab-milhar {
+    display: block;
+    width: 100%; /* Ajusta a largura para preencher o container */
+    max-width: 136px; /* Define a largura máxima */
+    height: 40px;
+    padding: 5px;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px #fff;
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    margin: 5px; /* Remove a margem para ajustar ao tamanho da célula */
+    transition: .3s ease-in-out;
+    outline: none;
+}
+
+    .tab-resultado::placeholder,
+    .tab-grup::placeholder,
+    .tab-milhar::placeholder {
+        color: #bbbbbb;
+        font-size: 16px;
+    }
+
+.centralizar-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha o contêiner ao topo */
+    height: 100vh; /* Altura da viewport */
+    padding-bottom: 100%; /* Adiciona espaço superior para ajustar a posição */
+
+}
+
+.containder {
+    position: relative;
+    width: 480px;
+    padding: 20px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Alinha o conteúdo verticalmente */
+    margin: 22px;
+}
+
+.title-jb {
+    font-size: 16px;
+    color: #fff;
+}
+
+
+.input-horaEData {
+    display: block;
+    width: 100%; /* Ajusta a largura para preencher o container */
+    max-width: 400px; /* Define a largura máxima */
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px #fff;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    margin: 5px; /* Remove a margem para ajustar ao tamanho da célula */
+}
+/* Definição da animação "celebration-dance" */
+@keyframes celebration-dance {
+    0% {
+        /* No início (0%), o elemento é transladado para cima (-30%) e sofre escala vertical (scaleY) de 1. */
+        transform: translate3d(0, -30%, 0) scaleY(1);
+        /* Utiliza a função de tempo de animação "cubic-bezier" com os valores especificados. Isso afeta a transição da animação. */
+        animation-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    }
+
+    50% {
+        /* No meio (50%), o elemento é transladado para sua posição original (0%) e sofre uma escala vertical de 1.2 e uma escala horizontal (scaleX) de 0.9. */
+        transform: translate3d(0, 0, 0) scaleY(1.2) scaleX(0.9);
+    }
+
+    70% {
+        /* Aos 70%, o elemento volta à sua posição original, com escala vertical de 0.9 e escala horizontal de 1. */
+        transform: translate3d(0, 0, 0) scaleY(0.9) scaleX(1);
+    }
+
+    100% {
+        /* No final (100%), o elemento volta à sua posição original, com escala vertical de 0.8 e escala horizontal de 1.1. */
+        transform: translate3d(0, 0, 0) scaleY(0.8) scaleX(1.1);
+    }
+}
+
+/* Definição da animação "do-a-flip" */
+@keyframes do-a-flip {
+    0% {
+        /* No início (0%), o elemento começa com rotação de 0 graus. */
+        transform: rotate(0deg);
+    }
+
+    21% {
+        /* Aos 21%, a rotação ainda é 0 graus, mas utiliza uma função de tempo "cubic-bezier" diferente, o que afeta a transição da animação. */
+        transform: rotate(0deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    28% {
+        /* Aos 28%, o elemento roda -360 graus (rotação completa no sentido anti-horário). */
+        transform: rotate(-360deg);
+    }
+
+    71% {
+        /* Aos 71%, o elemento roda novamente -360 graus (rotação completa no sentido anti-horário). */
+        transform: rotate(-360deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    78% {
+        /* Aos 78%, o elemento roda 360 graus (rotação completa no sentido horário). */
+        transform: rotate(360deg);
+    }
+
+    100% {
+        /* No final (100%), o elemento completa outra rotação de 360 graus (rotação completa no sentido horário). */
+        transform: rotate(360deg);
+    }
+}
+
+/* Definição da animação "movimento_down" */
+@keyframes movimento_down {
+    0% {
+        /* No início (0%), o elemento é transladado para baixo (-180 graus), fica totalmente transparente (opacidade 0) e é movido para cima (-500px). */
+        transform: rotate(-180deg);
+        opacity: 0;
+        top: -500px;
+    }
+
+    100% {
+        /* No final (100%), o elemento volta à sua posição original, tornando-se completamente opaco (opacidade 1). */
+        opacity: 1;
+    }
+}
+
+/* Definição da animação "movimento_up" */
+@keyframes movimento_up {
+    0% {
+        /* No início (0%), o elemento tem opacidade de 0.1 e sua posição no eixo Y é 0px (posição inicial). */
+        opacity: 0.1;
+        top: 0px;
+    }
+
+    100% {
+        /* No final (100%), o elemento fica com opacidade 0 e é movido para cima (-500px). */
+        opacity: 0;
+        top: -500px;
+    }
+}
+
+/* Classe de animação "animaa" */
+.animaa {
+    /* A classe "animaa" utiliza a animação "celebration-dance", com duração de 1 segundo e repetição infinita. */
+    animation-name: celebration-dance;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+/* Classe de animação "avatar-container" */
+.avatar-container {
+    /* A classe "avatar-container" utiliza a animação "celebration-dance", com duração de 0.7 segundos, modo linear e repetição infinita em sentido alternado. */
+    display: inline-block;
+    height: 100%;
+    animation: celebration-dance 0.7s linear infinite alternate;
+    transform-origin: center bottom;
+}
+
+/* Classe de animação "avatar" */
+.avatar {
+    /* A classe "avatar" utiliza a animação "do-a-flip", com duração de 14 segundos, modo linear e repetição infinita com atraso de 0.7 segundos antes de começar. */
+    height: 100%;
+    width: auto;
+    animation: do-a-flip 14s linear-0.7s infinite;
+    transform-origin: 60% center;
+}
+
+/* Classe de animação "movimento_down" */
+.movimento_down {
+    /* A classe "movimento_down" utiliza a animação "movimento_down", com duração de 2 segundos e executada uma única vez. */
+    animation-name: movimento_down;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+
+/* Classe de animação "movimento_up" */
+.movimento_up {
+    /* A classe "movimento_up" utiliza a animação "movimento_up", com duração de 1 segundo e executada uma única vez. */
+    animation-name: movimento_up;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+
+.anim_insercao {
+    position: relative;
+    animation-name: anim_insercao;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_insercao {
+    0% {
+        left: 0px;
+        top: 0px;
+        opacity: 0.2;
+        color: transparent;
+    }
+
+    25% {
+        opacity: 0.1;
+        color: transparent;
+    }
+
+    50% {
+        left: 100px;
+        top: 0px;
+        opacity: 0;
+        color: transparent;
+    }
+
+    75% {
+        opacity: 0.5;
+        color: transparent;
+        transform: rotate(180deg);
+    }
+
+    100% {
+        left: 0px;
+        top: 0px;
+        opacity: 1.0;
+    }
+}
+
+.container-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    margin: 22px;
+}
+
+.blur-container {
+    position: relative;
+    width: 230px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+    .blur-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .blur-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        z-index: 1;
+    }
+
+    .blur-container img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 2;
+    }
+
+#grupo-info {
+    text-align: center;
+    background-color: #f6f5f5;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 230px;
+    margin-top: 10px;
+    
+}
+.Grupo-numero {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 36px;
+    color: #343434ff;
+}
+.title-dezenas {
+    font-size: 18px;
+    margin-top: 26px;
+    margin-bottom: 0px;
+   
+}
+.grupo-dezenas {
+    font-size: 26px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
