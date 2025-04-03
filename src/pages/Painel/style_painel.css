@@ -1,7 +1,13 @@
-Body {
+/* Corrigindo o corpo (body) */
+.main-content {
     background: url('../Painel/images/painel_01.jpg') no-repeat center center/cover;
-    min-height: 100vh;
-}
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Impede a rolagem */
+  }
+  
 
 .table-content {
     width: auto; /* Ajusta a tabela automaticamente ao conteúdo */
@@ -96,16 +102,21 @@ Body {
         font-size: 16px;
     }
 
-.centralizar-container {
+  /* Ajustando o container principal */
+  .centralizar-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha o contêiner ao topo */
-    height: 100vh; /* Altura da viewport */
-    padding-bottom: 100%; /* Adiciona espaço superior para ajustar a posição */
-
-}
-
-.containder {
+    align-items: flex-start;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 100px;
+    padding: 20px;
+    box-sizing: border-box; /* Inclui padding no cálculo do tamanho */
+    overflow-y: auto; /* Permite rolagem apenas se necessário */
+  }
+  
+  /* Ajustando os containers internos */
+  .containder {
     position: relative;
     width: 480px;
     padding: 20px;
@@ -116,10 +127,13 @@ Body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Alinha o conteúdo verticalmente */
-    margin: 22px;
-}
-
+    flex-direction: column;
+    margin: 10px;
+    box-sizing: border-box;
+    max-height: 90vh; /* Limita a altura máxima */
+    overflow-y: auto; /* Permite rolagem interna se necessário */
+    overflow: hidden; /* Impede a rolagem */
+  }
 .title-jb {
     font-size: 16px;
     color: #fff;
