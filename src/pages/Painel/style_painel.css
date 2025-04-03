@@ -383,3 +383,33 @@ Body {
     font-size: 26px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+/* Botões de navegação */
+.botao-navegacao {
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5; /* Translúcido por padrão */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Suave transição */
+  }
+  
+  .botao-navegacao:hover {
+    opacity: 1; /* Totalmente visível no hover */
+    transform: scale(1.1); /* Efeito de zoom opcional */
+  }
+  
+  .botao-voltar {
+    right: 10px;
+  }
+  
+  .botao-avancar {
+    right: 10px;
+  }

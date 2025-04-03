@@ -55,7 +55,7 @@ import blur23 from './images/_blurContainer/23.png';
 import blur24 from './images/_blurContainer/24.png';
 import blur25 from './images/_blurContainer/25.png';
 
-// Importe todos os áudios
+// Importe todos os áudios (adicione isso junto com as importações de imagens)
 import audio01 from './audios/01.mp3';
 import audio02 from './audios/02.mp3';
 import audio03 from './audios/03.mp3';
@@ -82,6 +82,7 @@ import audio23 from './audios/23.mp3';
 import audio24 from './audios/24.mp3';
 import audio25 from './audios/25.mp3';
 
+
 // Mapeamento de imagens
 const images = {
   rg: {
@@ -100,7 +101,7 @@ const images = {
   }
 };
 
-// Mapeamento de áudios
+// Crie um objeto de mapeamento de áudios (junto com o objeto images)
 const audios = {
   '01': audio01, '02': audio02, '03': audio03, '04': audio04, '05': audio05,
   '06': audio06, '07': audio07, '08': audio08, '09': audio09, '10': audio10,
@@ -124,34 +125,26 @@ const Painel = () => {
       grupo1: '', grupo2: '', grupo3: '', grupo4: '', grupo5: '', grupo6: '', grupo7: '',
       nome1: '', nome2: '', nome3: '', nome4: '', nome5: '', nome6: '', nome7: '',
       img1: '', img2: '', img3: '', img4: '', img5: '', img6: '', img7: ''
-    },
-    federal: {
-      milhar1: '', milhar2: '', milhar3: '', milhar4: '', milhar5: '', milhar6: '', milhar7: '',
-      grupo1: '', grupo2: '', grupo3: '', grupo4: '', grupo5: '', grupo6: '', grupo7: '',
-      nome1: '', nome2: '', nome3: '', nome4: '', nome5: '', nome6: '', nome7: '',
-      img1: '', img2: '', img3: '', img4: '', img5: '', img6: '', img7: ''
     }
   });
 
   // Estado para o container de informações
-  const [blurContainer, setBlurContainer] = useState({
-    show: false,
-    image: '',
-    grupoNumero: '',
-    grupoDezenas: ''
-  });
-
+  const [showBlurContainer, setShowBlurContainer] = useState(false);
+  const [blurImage, setBlurImage] = useState('');
+  const [grupoInfo, setGrupoInfo] = useState({ numero: '', dezenas: '' });
+    // Estado para o container de informações
+    const [blurContainer, setBlurContainer] = useState({
+      show: false,
+      image: '',
+      grupoNumero: '',
+      grupoDezenas: ''
+    });
+  
   // Estado para os campos de resultado
   const [resultadoInput, setResultadoInput] = useState({
     rio: '',
-    goias: '',
-    federal: ''
+    goias: ''
   });
-
-  // Estado para controlar qual painel está visível (rio ou federal)
-  const [painelAtivo, setPainelAtivo] = useState('rio');
-  const [mostrarSeta, setMostrarSeta] = useState(false);
-  const [virandoPagina, setVirandoPagina] = useState(false);
 
   // Atualiza os campos de resultado baseado no horário atual
   useEffect(() => {
@@ -162,7 +155,7 @@ const Painel = () => {
   const verificarCamposPreenchidos = (estado) => {
     return [1, 2, 3, 4, 5].every(i => {
       const value = estados[estado][`milhar${i}`];
-      return value && value.length === (i === 7 && estado === 'federal' ? 3 : 4);
+      return value && value.length === 4;
     });
   };
 
@@ -193,86 +186,41 @@ const Painel = () => {
     if (e.target.value.length >= maxLength) {
       const inputs = e.target.closest("tbody").querySelectorAll("input.tab-resultado:not([disabled])");
       const indiceAtual = Array.from(inputs).indexOf(e.target);
+      if (indiceAtual < inputs.length - 1) {
+        const proximoCampo = inputs[indiceAtual + 1];
+        proximoCampo.focus();
+      }
+    }
+  };
+
+ // Atualiza o container de informações para o primeiro prêmio do Rio
+ const updateBlurContainerImage = (estado, rowIndex, value) => {
+  if (estado === 'rio' && rowIndex === 1 && value.length === 4) {
+    const dezenaBicho = value.substring(2);
+    const grupo = getGrupo(dezenaBicho);
+
+    if (grupo) {
+      const paddedNumber = grupo.padStart(2, '0');
       
-      // Lógica específica para o federal
-      if (estado === 'federal') {
-        if (rowIndex === 5) {
-          // Após preencher o 5º prêmio, pular para o 4º
-          const campo4 = e.target.closest("tbody").querySelector(`input[id="${estado}_milhar4"]`);
-          if (campo4) campo4.focus();
-        } else if (rowIndex === 4) {
-          // Após preencher o 4º prêmio, pular para o 3º
-          const campo3 = e.target.closest("tbody").querySelector(`input[id="${estado}_milhar3"]`);
-          if (campo3) campo3.focus();
-        } else if (rowIndex === 3) {
-          // Após preencher o 3º prêmio, pular para o 2º
-          const campo2 = e.target.closest("tbody").querySelector(`input[id="${estado}_milhar2"]`);
-          if (campo2) campo2.focus();
-        } else if (rowIndex === 2) {
-          // Após preencher o 2º prêmio, pular para o 1º
-          const campo1 = e.target.closest("tbody").querySelector(`input[id="${estado}_milhar1"]`);
-          if (campo1) campo1.focus();
-        } else if (rowIndex === 1) {
-          // Após preencher o 1º prêmio, mostrar o container e pular para o 7º
-          updateBlurContainerImage(estado, 1, e.target.value);
-          const campo7 = e.target.closest("tbody").querySelector(`input[id="${estado}_milhar7"]`);
-          if (campo7) campo7.focus();
-        }
-      } else {
-        // Comportamento normal para Rio e Goiás
-        if (indiceAtual < inputs.length - 1) {
-          const proximoCampo = inputs[indiceAtual + 1];
-          proximoCampo.focus();
-        }
-      }
-    }
-  };
-
-  // Atualiza o container de informações para o primeiro prêmio do Rio
-  const updateBlurContainerImage = (estado, rowIndex, value) => {
-    if (estado === 'rio' && rowIndex === 1 && value.length === 4) {
-      const dezenaBicho = value.substring(2);
-      const grupo = getGrupo(dezenaBicho);
-
-      if (grupo) {
-        const paddedNumber = grupo.padStart(2, '0');
-        
-        setBlurContainer({
-          show: true,
-          image: images.blurContainer[paddedNumber],
-          grupoNumero: `Grupo ${grupo}`,
-          grupoDezenas: getDezenas(grupo)
-        });
-
-        confetti();
-        playAudio(grupo);
-      }
-    } else if (estado === 'federal' && rowIndex === 1 && value.length === 4) {
-      const dezenaBicho = value.substring(2);
-      const grupo = getGrupo(dezenaBicho);
-
-      if (grupo) {
-        const paddedNumber = grupo.padStart(2, '0');
-        
-        setBlurContainer({
-          show: true,
-          image: images.blurContainer[paddedNumber],
-          grupoNumero: `Grupo ${grupo}`,
-          grupoDezenas: getDezenas(grupo)
-        });
-
-        confetti();
-        playAudio(grupo);
-      }
-    } else if ((estado === 'rio' || estado === 'federal') && rowIndex === 1) {
       setBlurContainer({
-        show: false,
-        image: '',
-        grupoNumero: '',
-        grupoDezenas: ''
+        show: true,
+        image: images.blurContainer[paddedNumber],
+        grupoNumero: `Grupo ${grupo}`,
+        grupoDezenas: getDezenas(grupo)
       });
+
+      confetti();
+      playAudio(grupo);
     }
-  };
+  } else if (estado === 'rio' && rowIndex === 1) {
+    setBlurContainer({
+      show: false,
+      image: '',
+      grupoNumero: '',
+      grupoDezenas: ''
+    });
+  }
+};
 
   // Retorna as dezenas correspondentes a um grupo
   const getDezenas = (grupo) => {
@@ -291,29 +239,28 @@ const Painel = () => {
   };
 
   // Toca o áudio correspondente ao grupo
-  const playAudio = (grupo) => {
-    if (!grupo) return;
-    const paddedNumber = grupo.padStart(2, '0');
-    
-    if (!audios[paddedNumber]) {
-      console.error(`Áudio para o grupo ${grupo} não encontrado`);
-      return;
-    }
-    
-    const audio = new Audio(audios[paddedNumber]);
-    audio.play().catch(error => console.error("Erro ao reproduzir o áudio:", error));
-  };
+// Modifique a função playAudio
+const playAudio = (grupo) => {
+  if (!grupo) return;
+  const paddedNumber = grupo.padStart(2, '0');
+  
+  // Verifica se o áudio existe no objeto
+  if (!audios[paddedNumber]) {
+    console.error(`Áudio para o grupo ${grupo} não encontrado`);
+    return;
+  }
+  
+  const audio = new Audio(audios[paddedNumber]);
+  audio.play().catch(error => console.error("Erro ao reproduzir o áudio:", error));
+};
 
-  // Atualização do handleInputChange
+  // Atualização do handleInputChange - VERSÃO CORRIGIDA
   const handleInputChange = (estado, rowIndex, value) => {
-    let maxLength = 4;
-    if (rowIndex === 7) {
-      maxLength = estado === 'federal' ? 3 : 3;
-    }
-
+    const maxLength = rowIndex === 7 ? 3 : 4;
     const numericValue = value.replace(/\D/g, '').slice(0, maxLength);
 
     setEstados(prev => {
+      // Primeiro, atualiza o estado com o novo valor
       const newState = {
         ...prev,
         [estado]: {
@@ -331,28 +278,9 @@ const Painel = () => {
         newState[estado][`nome${rowIndex}`] = getNomeBicho(grupo);
         newState[estado][`img${rowIndex}`] = grupo ? images.rg[grupo.padStart(2, '0')] : '';
 
-        // Efeito especial para o primeiro prêmio do Rio ou Federal
-        if ((estado === 'rio' || estado === 'federal') && rowIndex === 1) {
+        // Efeito especial para o primeiro prêmio do Rio
+        if (estado === 'rio' && rowIndex === 1) {
           updateBlurContainerImage(estado, rowIndex, numericValue);
-        }
-
-        // Cálculo específico para o painel federal
-        if (estado === 'federal' && rowIndex === 7 && numericValue.length === 3) {
-          // Calcula o 6º prêmio (soma dos 5 primeiros)
-          let soma = 0;
-          for (let i = 1; i <= 5; i++) {
-            const value = newState.federal[`milhar${i}`];
-            if (!value || value.length !== 4) return newState;
-            soma += parseInt(value);
-          }
-          const sextoPremio = soma.toString().slice(-4).padStart(4, '0');
-          const dezena6 = sextoPremio.substring(2);
-          const grupo6 = getGrupo(dezena6);
-          
-          newState.federal.milhar6 = sextoPremio;
-          newState.federal.grupo6 = grupo6;
-          newState.federal.nome6 = getNomeBicho(grupo6);
-          newState.federal.img6 = grupo6 ? images.rg[grupo6.padStart(2, '0')] : '';
         }
       } else {
         // Limpa se não estiver completo
@@ -361,56 +289,54 @@ const Painel = () => {
         newState[estado][`img${rowIndex}`] = '';
       }
 
-      // Cálculos normais para Rio e Goiás
-      if (estado !== 'federal') {
-        const todosPreenchidos = [1, 2, 3, 4, 5].every(i => {
-          return newState[estado][`milhar${i}`] && newState[estado][`milhar${i}`].length === 4;
-        });
+      // Verifica se todos os campos de 1 a 5 estão preenchidos para calcular o 6º prêmio
+      const todosPreenchidos = [1, 2, 3, 4, 5].every(i => {
+        return newState[estado][`milhar${i}`] && newState[estado][`milhar${i}`].length === 4;
+      });
 
-        if (todosPreenchidos) {
-          // Calcula o 6º prêmio (soma dos 5 primeiros)
-          let soma = 0;
-          for (let i = 1; i <= 5; i++) {
-            soma += parseInt(newState[estado][`milhar${i}`]);
-          }
-          const sextoPremio = soma.toString().slice(-4).padStart(4, '0');
-          const dezena6 = sextoPremio.substring(2);
-          const grupo6 = getGrupo(dezena6);
-          
-          newState[estado].milhar6 = sextoPremio;
-          newState[estado].grupo6 = grupo6;
-          newState[estado].nome6 = getNomeBicho(grupo6);
-          newState[estado].img6 = grupo6 ? images.rg[grupo6.padStart(2, '0')] : '';
-
-          // Se for o 5º prêmio que foi preenchido, também calcula o 7º prêmio
-          if (rowIndex === 5) {
-            const premio1 = newState[estado].milhar1;
-            const premio2 = newState[estado].milhar2;
-            
-            if (premio1 && premio2) {
-              const resultado = (parseInt(premio1) * parseInt(premio2)).toString();
-              const setimoPremio = resultado.slice(-6, -3).padStart(3, '0');
-              const dezena7 = setimoPremio.substring(1);
-              const grupo7 = getGrupo(dezena7);
-              
-              newState[estado].milhar7 = setimoPremio;
-              newState[estado].grupo7 = grupo7;
-              newState[estado].nome7 = getNomeBicho(grupo7);
-              newState[estado].img7 = grupo7 ? images.rg[grupo7.padStart(2, '0')] : '';
-            }
-          }
-        } else {
-          // Se não estiverem todos preenchidos, limpa o 6º e 7º prêmios
-          newState[estado].milhar6 = '';
-          newState[estado].grupo6 = '';
-          newState[estado].nome6 = '';
-          newState[estado].img6 = '';
-          
-          newState[estado].milhar7 = '';
-          newState[estado].grupo7 = '';
-          newState[estado].nome7 = '';
-          newState[estado].img7 = '';
+      if (todosPreenchidos) {
+        // Calcula o 6º prêmio (soma dos 5 primeiros)
+        let soma = 0;
+        for (let i = 1; i <= 5; i++) {
+          soma += parseInt(newState[estado][`milhar${i}`]);
         }
+        const sextoPremio = soma.toString().slice(-4).padStart(4, '0');
+        const dezena6 = sextoPremio.substring(2);
+        const grupo6 = getGrupo(dezena6);
+        
+        newState[estado].milhar6 = sextoPremio;
+        newState[estado].grupo6 = grupo6;
+        newState[estado].nome6 = getNomeBicho(grupo6);
+        newState[estado].img6 = grupo6 ? images.rg[grupo6.padStart(2, '0')] : '';
+
+        // Se for o 5º prêmio que foi preenchido, também calcula o 7º prêmio
+        if (rowIndex === 5) {
+          const premio1 = newState[estado].milhar1;
+          const premio2 = newState[estado].milhar2;
+          
+          if (premio1 && premio2) {
+            const resultado = (parseInt(premio1) * parseInt(premio2)).toString();
+            const setimoPremio = resultado.slice(-6, -3).padStart(3, '0');
+            const dezena7 = setimoPremio.substring(1);
+            const grupo7 = getGrupo(dezena7);
+            
+            newState[estado].milhar7 = setimoPremio;
+            newState[estado].grupo7 = grupo7;
+            newState[estado].nome7 = getNomeBicho(grupo7);
+            newState[estado].img7 = grupo7 ? images.rg[grupo7.padStart(2, '0')] : '';
+          }
+        }
+      } else {
+        // Se não estiverem todos preenchidos, limpa o 6º e 7º prêmios
+        newState[estado].milhar6 = '';
+        newState[estado].grupo6 = '';
+        newState[estado].nome6 = '';
+        newState[estado].img6 = '';
+        
+        newState[estado].milhar7 = '';
+        newState[estado].grupo7 = '';
+        newState[estado].nome7 = '';
+        newState[estado].img7 = '';
       }
 
       return newState;
@@ -495,58 +421,16 @@ const Painel = () => {
       { name: 'PTN Goiás 18:20' }, { name: 'COR Goiás 21:20' }
     ];
 
-    const federalTimes = [
-      { name: 'PPT Federal 09:20' }, { name: 'PTM Federal 11:20' },
-      { name: 'PT Federal 14:20' }, { name: 'PTV Federal 16:20' },
-      { name: 'PTN Federal 18:20' }, { name: 'COR Federal 21:20' }
-    ];
-
     setResultadoInput({
       rio: `${getResultado(rioTimes).name} ${dateStr}`,
-      goias: `${getResultado(goiasTimes).name} ${dateStr}`,
-      federal: `${getResultado(federalTimes).name} ${dateStr}`
+      goias: `${getResultado(goiasTimes).name} ${dateStr}`
     });
-  };
-
-  // Função para alternar entre os painéis
-  const alternarPainel = () => {
-    setVirandoPagina(true);
-    setTimeout(() => {
-      setPainelAtivo(painelAtivo === 'rio' ? 'federal' : 'rio');
-      setVirandoPagina(false);
-      
-      // Resetar o blurContainer quando alternar para o federal
-      if (painelAtivo === 'rio') {
-        setBlurContainer({
-          show: false,
-          image: '',
-          grupoNumero: '',
-          grupoDezenas: ''
-        });
-      }
-    }, 500); // Tempo da animação
   };
 
   // Renderiza uma linha da tabela
   const renderInputRow = (estado, rowIndex) => {
-    let maxLength = 4;
-    let disabled = false;
-    
-    if (estado === 'federal') {
-      if (rowIndex === 6) {
-        // 6º prêmio é calculado automaticamente quando o 7º é preenchido
-        maxLength = 4;
-        disabled = true;
-      } else if (rowIndex === 7) {
-        // 7º prêmio é manual no federal
-        maxLength = 3;
-        disabled = false;
-      }
-    } else {
-      // Comportamento normal para Rio e Goiás
-      maxLength = rowIndex === 7 ? 3 : 4;
-      disabled = rowIndex === 6; // 6º prêmio é sempre desabilitado (calculado automaticamente)
-    }
+    const maxLength = rowIndex === 7 ? 3 : 4;
+    const disabled = rowIndex === 6; // 6º prêmio é sempre desabilitado (calculado automaticamente)
 
     return (
       <tr key={`${estado}_row${rowIndex}`}>
@@ -604,77 +488,27 @@ const Painel = () => {
 
   return (
     <div className="centralizar-container">
-      {/* Painel do Rio de Janeiro/Federal */}
-      <div className="containder" 
-           onMouseEnter={() => painelAtivo === 'rio' && setMostrarSeta(true)}
-           onMouseLeave={() => setMostrarSeta(false)}>
-        
-        {painelAtivo === 'rio' ? (
-          <>
-            <h1 className="title-jb">Resultados RIO DE JANEIRO</h1>
-            <input
-              className="input-horaEData"
-              maxLength="40"
-              placeholder="Resultado da PT Rio 00/00/0000 00:30h"
-              type="text"
-              id="rio_resultadoInput"
-              value={resultadoInput.rio}
-              disabled
-            />
-          </>
-        ) : (
-          <>
-            <h1 className="title-jb">Resultados FEDERAL</h1>
-            <input
-              className="input-horaEData"
-              maxLength="40"
-              placeholder="Resultado Federal 00/00/0000 00:30h"
-              type="text"
-              id="federal_resultadoInput"
-              value={resultadoInput.federal}
-              disabled
-            />
-          </>
-        )}
+      {/* Painel do Rio de Janeiro */}
+      <div className="containder">
+        <h1 className="title-jb">Resultados RIO DE JANEIRO</h1>
+        <input
+          className="input-horaEData"
+          maxLength="40"
+          placeholder="Resultado da PT Rio 00/00/0000 00:30h"
+          type="text"
+          id="rio_resultadoInput"
+          value={resultadoInput.rio}
+          disabled
+        />
 
-        {/* Ícone de seta para avançar (Rio -> Federal) */}
-{painelAtivo === 'rio' && (
-  <div 
-    className={`botao-navegacao botao-avancar ${mostrarSeta ? 'visible' : ''}`}
-    onClick={alternarPainel}
-    title="Ir para Federal"
-  >
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 16L16 12L12 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M8 12H16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  </div>
-)}
-
-{/* Ícone de seta para voltar (Federal -> Rio) */}
-{painelAtivo === 'federal' && (
-  <div 
-    className="botao-navegacao botao-voltar"
-    onClick={alternarPainel}
-    title="Voltar para Rio"
-  >
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 16L8 12L12 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M16 12H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  </div>
-)}
-
-        <table className={`table-content ${virandoPagina ? 'virando-pagina' : ''}`}>
+        <table className="table-content">
           <tbody>
-            {[1, 2, 3, 4, 5, 6, 7].map(rowIndex => 
-              renderInputRow(painelAtivo === 'rio' ? 'rio' : 'federal', rowIndex)
-            )}
+            {[1, 2, 3, 4, 5, 6, 7].map(rowIndex => renderInputRow('rio', rowIndex))}
           </tbody>
         </table>
       </div>
 
-      {/* Container de informações (mostra grupo e dezenas do 1º prêmio do Rio ou Federal) */}
+      {/* Container de informações (mostra grupo e dezenas do 1º prêmio do Rio) */}
       <div className="container-info">
         {blurContainer.show && (
           <>
