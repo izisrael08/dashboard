@@ -490,15 +490,15 @@ const Painel = () => {
     ];
 
     const goiasTimes = [
-      { name: 'PPT Goiás 09:20' }, { name: 'PTM Goiás 11:20' },
-      { name: 'PT Goiás 14:20' }, { name: 'PTV Goiás 16:20' },
-      { name: 'PTN Goiás 18:20' }, { name: 'COR Goiás 21:20' }
+      { name: 'Goiás 09:20' }, { name: 'Goiás 11:20' },
+      { name: 'Goiás 14:20' }, { name: 'Goiás 16:20' },
+      { name: 'Goiás 18:20' }, { name: 'Goiás 21:20' }
     ];
 
     const federalTimes = [
-      { name: 'PPT Federal 09:20' }, { name: 'PTM Federal 11:20' },
-      { name: 'PT Federal 14:20' }, { name: 'PTV Federal 16:20' },
-      { name: 'PTN Federal 18:20' }, { name: 'COR Federal 21:20' }
+      { name: 'Federal 09:20' }, { name: 'Federal 11:20' },
+      { name: 'Federal 14:20' }, { name: 'Federal 16:20' },
+      { name: 'Federal 18:20' }, { name: 'Federal 21:20' }
     ];
 
     setResultadoInput({
@@ -567,6 +567,10 @@ const Painel = () => {
           <input
             id={`${estado}_milhar${rowIndex}`}
             type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
             className="tab-resultado"
             value={estados[estado][`milhar${rowIndex}`]}
             onChange={(e) => handleInputChange(estado, rowIndex, e.target.value)}
@@ -576,6 +580,7 @@ const Painel = () => {
             placeholder="PRÊMIO"
             inputMode="numeric"
             pattern="[0-9]*"
+            
           />
         </td>
         <td>
