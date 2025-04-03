@@ -109,6 +109,7 @@ const audios = {
   '21': audio21, '22': audio22, '23': audio23, '24': audio24, '25': audio25
 };
 
+
 // Componente principal
 const Painel = () => {
   // Estado para armazenar os dados dos prêmios
@@ -147,7 +148,6 @@ const Painel = () => {
     goias: '',
     federal: ''
   });
-
   // Estado para controlar qual painel está visível (rio ou federal)
   const [painelAtivo, setPainelAtivo] = useState('rio');
   const [mostrarSeta, setMostrarSeta] = useState(false);
@@ -508,24 +508,24 @@ const Painel = () => {
     });
   };
 
-  // Função para alternar entre os painéis
-  const alternarPainel = () => {
-    setVirandoPagina(true);
-    setTimeout(() => {
-      setPainelAtivo(painelAtivo === 'rio' ? 'federal' : 'rio');
-      setVirandoPagina(false);
-      
-      // Resetar o blurContainer quando alternar para o federal
-      if (painelAtivo === 'rio') {
-        setBlurContainer({
-          show: false,
-          image: '',
-          grupoNumero: '',
-          grupoDezenas: ''
-        });
-      }
-    }, 500); // Tempo da animação
-  };
+  // Modifique a função alternarPainel
+const alternarPainel = () => {
+  setVirandoPagina(true);
+  setTimeout(() => {
+    setPainelAtivo(painelAtivo === 'rio' ? 'federal' : 'rio');
+    setVirandoPagina(false);
+    
+    // Resetar o blurContainer quando alternar para o federal
+    if (painelAtivo === 'rio') {
+      setBlurContainer({
+        show: false,
+        image: '',
+        grupoNumero: '',
+        grupoDezenas: ''
+      });
+    }
+  }, 500); // Tempo da animação
+};
 
   // Renderiza uma linha da tabela
   const renderInputRow = (estado, rowIndex) => {
@@ -643,7 +643,7 @@ const Painel = () => {
         )}
 
         {/* Ícone de seta para avançar (Rio -> Federal) */}
-{painelAtivo === 'rio' && (
+  {painelAtivo === 'rio' && (
   <div 
     className={`botao-navegacao botao-avancar ${mostrarSeta ? 'visible' : ''}`}
     onClick={alternarPainel}
@@ -656,7 +656,6 @@ const Painel = () => {
   </div>
 )}
 
-{/* Ícone de seta para voltar (Federal -> Rio) */}
 {painelAtivo === 'federal' && (
   <div 
     className="botao-navegacao botao-voltar"
@@ -670,13 +669,14 @@ const Painel = () => {
   </div>
 )}
 
-        <table className={`table-content ${virandoPagina ? 'virando-pagina' : ''}`}>
-          <tbody>
-            {[1, 2, 3, 4, 5, 6, 7].map(rowIndex => 
-              renderInputRow(painelAtivo === 'rio' ? 'rio' : 'federal', rowIndex)
-            )}
-          </tbody>
-        </table>
+
+<table className={`table-content ${virandoPagina ? 'virando-pagina' : ''}`}>
+  <tbody>
+    {[1, 2, 3, 4, 5, 6, 7].map(rowIndex => 
+      renderInputRow(painelAtivo === 'rio' ? 'rio' : 'federal', rowIndex)
+    )}
+  </tbody>
+</table>
       </div>
 
       {/* Container de informações (mostra grupo e dezenas do 1º prêmio do Rio ou Federal) */}
